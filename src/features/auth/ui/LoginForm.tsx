@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { Input, Form, Button, Typography } from 'antd';
 import { notification } from 'antd';
 import { useLogin } from '../model/useLogin';
+import { replace, useNavigate } from 'react-router-dom';
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
   const { mutate, isPending, error } = useLogin();
 
   useEffect(() => {
@@ -13,7 +15,9 @@ export const LoginForm = () => {
   }, [error]);
 
   const onFinish = (values: { login: string; password: string }) => {
-    mutate(values);
+    mutate(values, {
+      onSuccess: () => navigate('/users', { replace: true }),
+    });
   };
 
   return (
