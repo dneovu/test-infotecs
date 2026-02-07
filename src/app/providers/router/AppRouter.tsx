@@ -3,11 +3,13 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import LoginPage from '../../../pages/login/LoginPage';
 import { ProtectedRoute } from './ProtectedRoute';
 import { PublicRoute } from './PublicRoute';
+import NotFoundPage from '../../../pages/not-found/NotFoundPage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Navigate to="/login" replace />,
+    errorElement: <NotFoundPage />,
   },
   {
     path: '/login',
