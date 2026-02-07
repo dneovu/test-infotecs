@@ -4,6 +4,7 @@ import LoginPage from '../../../pages/login/LoginPage';
 import { ProtectedRoute } from './ProtectedRoute';
 import { PublicRoute } from './PublicRoute';
 import NotFoundPage from '../../../pages/not-found/NotFoundPage';
+import UsersPage from '../../../pages/users/UsersPage';
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
     path: '/users',
     element: (
       <ProtectedRoute>
-        <div>users page</div>
+        <UsersPage />
       </ProtectedRoute>
     ),
   },
