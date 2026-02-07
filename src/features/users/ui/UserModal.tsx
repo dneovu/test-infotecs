@@ -4,6 +4,7 @@ import { User } from '../../../entities/user';
 import { useCreateUser } from '../model/useCreateUser';
 import { useUpdateUser } from '../model/useUpdateUser';
 import { useDeleteUser } from '../model/useDeleteUser';
+import styled from 'styled-components';
 
 type Props = {
   open: boolean;
@@ -51,6 +52,12 @@ export const UserModal = ({ open, user, onClose }: Props) => {
     }
   };
 
+  const ModalFooter = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  `;
+
   return (
     <Modal
       open={open}
@@ -95,7 +102,7 @@ export const UserModal = ({ open, user, onClose }: Props) => {
         </Form.Item>
       </Form>
 
-      <div
+      <ModalFooter
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -126,7 +133,7 @@ export const UserModal = ({ open, user, onClose }: Props) => {
             Отмена
           </Button>
         </Space>
-      </div>
+      </ModalFooter>
     </Modal>
   );
 };
