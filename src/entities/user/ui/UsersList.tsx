@@ -20,7 +20,7 @@ export const UsersList = ({ onUserClick }: Props) => {
           <List.Item.Meta
             avatar={
               <Avatar
-                src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
+                src={user.avatar}
                 onClick={() => onUserClick(user)}
                 style={{ cursor: 'pointer' }}
               />
