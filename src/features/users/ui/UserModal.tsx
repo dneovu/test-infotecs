@@ -8,10 +8,10 @@ import { useDeleteUser } from '../model/useDeleteUser';
 type Props = {
   open: boolean;
   user: User | null;
-  onCancel: () => void;
+  onClose: () => void;
 };
 
-export const UserModal = ({ open, user, onCancel }: Props) => {
+export const UserModal = ({ open, user, onClose }: Props) => {
   const [form] = Form.useForm();
   const isEdit = Boolean(user);
 
@@ -41,10 +41,10 @@ export const UserModal = ({ open, user, onCancel }: Props) => {
       if (isEdit) {
         updateMutation.mutate(
           { id: user?.id, ...values },
-          { onSuccess: onCancel },
+          { onSuccess: onClose },
         );
       } else {
-        createMutation.mutate(values, { onSuccess: onCancel });
+        createMutation.mutate(values, { onSuccess: onClose });
       }
     } catch (error) {
       console.error(error);
@@ -57,26 +57,25 @@ export const UserModal = ({ open, user, onCancel }: Props) => {
       title={isEdit ? 'Редактирование пользователя' : 'Создание пользователя'}
       onOk={handleOk}
       footer={null}
-      onCancel={onCancel}
+      onCancel={() => {
+        if (!isLoading) {
+          onClose();
+        }
+      }}
       confirmLoading={isLoading}
       maskClosable={!isLoading}
       closable={!isLoading}
+      destroyOnHidden
     >
       <Form form={form} layout="vertical" requiredMark={false}>
         {isEdit && (
-          <Form.Item
-            label="id"
-            name="id"
-            style={{ marginBottom: 12 }}
-            labelCol={{ style: { marginBottom: 4 } }}
-          >
+          <Form.Item label="id" name="id" style={{ marginBottom: 12 }}>
             <Input disabled />
           </Form.Item>
         )}
 
         <Form.Item
           style={{ marginBottom: 12 }}
-          labelCol={{ style: { marginBottom: 1 } }}
           label="Имя"
           name="name"
           rules={[{ required: true, message: 'Введите имя' }]}
@@ -85,7 +84,6 @@ export const UserModal = ({ open, user, onCancel }: Props) => {
         </Form.Item>
 
         <Form.Item
-          labelCol={{ style: { marginBottom: 4 } }}
           label="Ссылка на аватарку"
           name="avatar"
           rules={[
@@ -109,7 +107,7 @@ export const UserModal = ({ open, user, onCancel }: Props) => {
             type="primary"
             onClick={() =>
               deleteMutation.mutate(user.id, {
-                onSuccess: onCancel,
+                onSuccess: onClose,
               })
             }
             disabled={isLoading}
@@ -124,7 +122,7 @@ export const UserModal = ({ open, user, onCancel }: Props) => {
           <Button type="primary" onClick={handleOk} loading={isLoading}>
             {isEdit ? 'Сохранить' : 'Создать'}
           </Button>
-          <Button type="primary" onClick={onCancel} disabled={isLoading}>
+          <Button type="primary" onClick={onClose} disabled={isLoading}>
             Отмена
           </Button>
         </Space>

@@ -47,7 +47,7 @@ export const UsersPage = () => {
       <UserModal
         user={editingUser}
         open={modalOpen}
-        onCancel={() => {
+        onClose={() => {
           setModalOpen(false);
           setEditingUser(null);
         }}
