@@ -51,7 +51,6 @@ export const UsersPage = () => {
           setModalOpen(false);
           setEditingUser(null);
         }}
-        onOk={() => console.log('ok')}
       />
     </>
   );
